@@ -1,3 +1,12 @@
+/**
+ * @file blink.ino
+ * @brief LED blink
+ * 
+ * Copyright (c) 2021 toms74209200
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
 #define LED_R 18
 #define LED_G 19
 #define LED_B 20
