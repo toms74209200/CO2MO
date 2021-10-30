@@ -9,13 +9,18 @@
 
 #include "mhz19b_uart.h"
 
+const byte START_BYTE = 0xFF;
+const byte REQUEST_SENSOR = 0x01;
+const byte READ_CO2 = 0x86;
+const byte CHECK_SUM = 0x79;
+
 /**
  * @brief Initializes serial port
  */
-void init_co2() {
-    Serial1.setRX(1);
-    Serial1.setTX(0);
-    Serial1.begin(9600);
+void init_co2(byte rx, byte tx) {
+  Serial1.setRX(rx);
+  Serial1.setTX(tx);
+  Serial1.begin(9600);
 }
 
 /**
@@ -23,51 +28,55 @@ void init_co2() {
  * @param[out] pointer of response data
  * @return bool result of successful reading
  */
-bool read_mhz19b(unsigned char* response) {
-    // MH-Z19 uart communication
-    byte cmd[9] = {0xFF,0x01,0x86,0x00,0x00,0x00,0x00,0x00,0x79};
-    Serial1.write(cmd, 9); //request PPM CO2
-    Serial1.readBytes(response, 9);
-    if (response[0] != 0xFF){
-        return false;
-    }
-    if (response[1] != 0x86){
-        return false;
-    }
-
+bool read_mhz19b(byte* response) {
+  byte cmd[9] = {START_BYTE,REQUEST_SENSOR,READ_CO2,0x00,0x00,0x00,0x00,0x00,CHECK_SUM};
+  Serial1.write(cmd, 9);
+  byte buf[10];
+  Serial1.readBytes(buf, 9);
+  if (buf[0] == 0xFF && buf[1] == 0x86) {
+    memcpy(response, buf, sizeof(response));
     return true;
+  }
+  if (buf[1] == 0xFF && buf[2] == 0x86) {
+    byte len = sizeof(response);
+    for (byte i = 0; i < len; i++) {
+      response[i] = buf[i+1];
+    }
+    return true;
+  }
+
+  return false;
 
 }
 /**
  * @brief Gets CO2 data
  * @return int CO2 data
  */
-int get_co2() {
-    unsigned char response[9];
+uint16_t get_co2() {
+  byte response[9];
 
-    if (!read_mhz19b(response)) {
-      return 0;
-    }
+  if (!read_mhz19b(response)) {
+    return 0;
+  }
 
-// CO2 calculation
-    unsigned int responseHigh = (unsigned int) response[2];
-    unsigned int responseLow = (unsigned int) response[3];
-    int ppm = (256 * responseHigh) + responseLow;
-    return ppm;
+  byte responseHigh = (byte) response[2];
+  byte responseLow = (byte) response[3];
+  uint16_t co2_data = (responseHigh << 8) + responseLow;
+  return co2_data;
 }
 
 /**
  * @brief Get temperature data
  * @return int temperature data
  */
-int get_temperature() {
-    unsigned char response[9];
+int16_t get_temperature() {
+  byte response[9];
 
-    if (!read_mhz19b(response)) {
-      return 0;
-    }
+  if (!read_mhz19b(response)) {
+    return 0;
+  }
 
-    int temperature = response[4] - 40;
+  int16_t temperature = response[4] - 40;
 
-    return temperature;
+  return temperature;
 }

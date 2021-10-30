@@ -12,9 +12,9 @@
 
 #include <Arduino.h>
 
-void init_co2();
-bool read_mhz19b(unsigned char*);
-int get_co2();
-int get_temperature();
+void init_co2(byte, byte);
+bool read_mhz19b(byte*);
+uint16_t get_co2();
+int16_t get_temperature();
 
 #endif
