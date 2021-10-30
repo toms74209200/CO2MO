@@ -12,6 +12,9 @@
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeSans9pt7b.h>
 
+#define OLED_SCL_PIN 5
+#define OLED_SDA_PIN 4
+
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
@@ -19,13 +22,11 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void setup() {
-  Serial.begin(9600);
-
-  Wire.setSDA(4);
-  Wire.setSCL(5);
+  Wire.setSDA(OLED_SDA_PIN);
+  Wire.setSCL(OLED_SCL_PIN);
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("SSD1306 allocation failed"));
+    Serial.println("SSD1306 allocation failed");
     while(1);
   }
 
