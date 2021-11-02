@@ -136,12 +136,12 @@ $EndComp
 $Comp
 L power:GND #PWR05
 U 1 1 61724285
-P 2600 3650
-F 0 "#PWR05" H 2600 3400 50  0001 C CNN
-F 1 "GND" H 2605 3477 50  0000 C CNN
-F 2 "" H 2600 3650 50  0001 C CNN
-F 3 "" H 2600 3650 50  0001 C CNN
-	1    2600 3650
+P 2500 3650
+F 0 "#PWR05" H 2500 3400 50  0001 C CNN
+F 1 "GND" H 2505 3477 50  0000 C CNN
+F 2 "" H 2500 3650 50  0001 C CNN
+F 3 "" H 2500 3650 50  0001 C CNN
+	1    2500 3650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -184,15 +184,6 @@ Wire Wire Line
 	2600 2750 2600 2850
 Wire Wire Line
 	2600 2850 2700 2850
-Wire Wire Line
-	2700 2950 2600 2950
-Wire Wire Line
-	2600 2950 2600 3550
-Wire Wire Line
-	2700 3550 2600 3550
-Connection ~ 2600 3550
-Wire Wire Line
-	2600 3550 2600 3650
 Wire Wire Line
 	2400 3050 2400 2950
 Wire Wire Line
@@ -327,11 +318,44 @@ U 1 1 61805284
 P 2050 3350
 F 0 "J1" H 1942 3017 50  0000 C CNN
 F 1 "Conn_01x04_Female" H 1942 3016 50  0001 C CNN
-F 2 "" H 2050 3350 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 2050 3350 50  0001 C CNN
 F 3 "~" H 2050 3350 50  0001 C CNN
 	1    2050 3350
 	-1   0    0    1   
 $EndComp
 Text Notes 1900 3450 0    60   ~ 0
 A3\nA2\nA1\nA0
+Text Label 4150 2850 0    50   ~ 0
+TX
+Text Label 4150 2950 0    50   ~ 0
+RX
+Text Label 4150 3250 0    50   ~ 0
+SDA
+Text Label 4150 3350 0    50   ~ 0
+SCL
+Text Label 4150 3050 0    50   ~ 0
+GPIO2
+Text Label 4150 3150 0    50   ~ 0
+GPIO3
+Text Label 4150 3450 0    50   ~ 0
+GPIO6
+Text Label 4150 3550 0    50   ~ 0
+GPIO7
+Text Label 2550 3450 0    50   ~ 0
+A0
+Text Label 2550 3350 0    50   ~ 0
+A1
+Text Label 2550 3250 0    50   ~ 0
+A2
+Text Label 2550 3150 0    50   ~ 0
+A3
+Wire Wire Line
+	2700 2950 2500 2950
+Wire Wire Line
+	2500 2950 2500 3550
+Wire Wire Line
+	2500 3550 2700 3550
+Connection ~ 2500 3550
+Wire Wire Line
+	2500 3550 2500 3650
 $EndSCHEMATC
