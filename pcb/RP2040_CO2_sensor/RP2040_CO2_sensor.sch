@@ -318,7 +318,7 @@ U 1 1 61805284
 P 2050 3350
 F 0 "J1" H 1942 3017 50  0000 C CNN
 F 1 "Conn_01x04_Female" H 1942 3016 50  0001 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 2050 3350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 2050 3350 50  0001 C CNN
 F 3 "~" H 2050 3350 50  0001 C CNN
 	1    2050 3350
 	-1   0    0    1   
@@ -358,4 +358,8 @@ Wire Wire Line
 Connection ~ 2500 3550
 Wire Wire Line
 	2500 3550 2500 3650
+Text Notes 7350 7000 0    100  ~ 0
+RPCM-2111
+Text Notes 7350 6800 0    100  ~ 0
+CO2MO
 $EndSCHEMATC
