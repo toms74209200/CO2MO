@@ -241,7 +241,7 @@ Tiny2040
 Text Notes 6550 2750 0    60   ~ 12
 MH-Z19B
 Text Notes 6300 5350 0    60   ~ 12
-SD1306
+SSD1306
 Wire Notes Line
 	7400 2800 6450 2800
 Wire Notes Line
