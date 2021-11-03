@@ -31,21 +31,22 @@ void init_co2(byte rx, byte tx) {
 bool read_mhz19b(byte* response) {
   byte cmd[9] = {START_BYTE,REQUEST_SENSOR,READ_CO2,0x00,0x00,0x00,0x00,0x00,CHECK_SUM};
   Serial1.write(cmd, 9);
-  byte buf[10];
-  Serial1.readBytes(buf, 9);
-  if (buf[0] == 0xFF && buf[1] == 0x86) {
-    memcpy(response, buf, sizeof(response));
-    return true;
-  }
-  if (buf[1] == 0xFF && buf[2] == 0x86) {
-    byte len = sizeof(response);
-    for (byte i = 0; i < len; i++) {
-      response[i] = buf[i+1];
+  
+  const uint16_t retry_count = 10;
+  for (uint16_t i = 1; ; i++) {
+    byte buf[2];
+    Serial1.readBytes(buf, sizeof(buf));
+    if (buf[0] == 0xFF && buf[1] == 0x86) {
+      break;
     }
-    return true;
+    if (i > retry_count) {
+      return false;
+    }
   }
-
-  return false;
+  byte buf[7];
+  Serial1.readBytes(buf, sizeof(buf));
+  memcpy(response, buf, sizeof(response));
+  return true;
 
 }
 /**
@@ -53,14 +54,14 @@ bool read_mhz19b(byte* response) {
  * @return int CO2 data
  */
 uint16_t get_co2() {
-  byte response[9];
+  byte response[7];
 
   if (!read_mhz19b(response)) {
     return 0;
   }
 
-  byte responseHigh = (byte) response[2];
-  byte responseLow = (byte) response[3];
+  byte responseHigh = (byte) response[0];
+  byte responseLow = (byte) response[1];
   uint16_t co2_data = (responseHigh << 8) + responseLow;
   return co2_data;
 }
@@ -70,13 +71,13 @@ uint16_t get_co2() {
  * @return int temperature data
  */
 int16_t get_temperature() {
-  byte response[9];
+  byte response[7];
 
   if (!read_mhz19b(response)) {
     return 0;
   }
 
-  int16_t temperature = response[4] - 40;
+  int16_t temperature = response[2] - 40;
 
   return temperature;
 }
