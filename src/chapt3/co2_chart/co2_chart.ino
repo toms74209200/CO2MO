@@ -13,9 +13,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include "src/TimeUtil/TimeUtil.h"
 #include "mhz19b_uart.h"
-
-#define INTERVAL 1000
 
 #define RX_PIN 1
 #define TX_PIN 0
@@ -27,10 +26,11 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-const uint16_t CHART_DATA_OFFSET = 14;
-const uint16_t CHART_DATA_HIGHT = SCREEN_HEIGHT - 14;
-const uint16_t CHART_DATA_MIN = 350;
-const uint16_t CHART_DATA_MAX = 3000;
+constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
+constexpr uint16_t CHART_DATA_OFFSET = 14;
+constexpr uint16_t CHART_DATA_HIGHT = SCREEN_HEIGHT - 14;
+constexpr uint16_t CHART_DATA_MIN = 350;
+constexpr uint16_t CHART_DATA_MAX = 3000;
 
 std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
 
@@ -53,6 +53,8 @@ void setup() {
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.display();
+
+  delay(time_util::Seconds::toMillis(10));
 }
 
 void loop() {
