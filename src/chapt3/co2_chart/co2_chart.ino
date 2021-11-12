@@ -13,6 +13,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include "src/LedController/LedController.h"
 #include "src/TimeUtil/TimeUtil.h"
 #include "mhz19b_uart.h"
 
@@ -26,6 +27,10 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+led::Red led_r = led::Red();
+led::Green led_g = led::Green();
+led::Blue led_b = led::Blue();
+
 constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
 constexpr uint16_t CHART_DATA_OFFSET = 14;
 constexpr uint16_t CHART_DATA_HIGHT = SCREEN_HEIGHT - 14;
@@ -35,6 +40,9 @@ constexpr uint16_t CHART_DATA_MAX = 3000;
 std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
 
 void setup() {
+  led_r.turn_off();
+  led_g.turn_off();
+  led_b.turn_off();
 
 // Debug USB serial
   Serial.begin(115200);
