@@ -1,27 +1,44 @@
 # PR2040 CO2 モニタ ビルド ガイド
 
-## Chapt. 0 環境構築
+## 組み立て
 
--  [Raspberry Pi Documentation - MicroPython](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html)
+## 環境構築
 
-- [Raspberry Pi Documentation - The C/C++ SDK](https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html)
+このプロジェクトでは C/C++ とArduino IDE を用いて開発を行います. 本項ではこれらを用いてデバイスの開発環境の構築を行います.
 
-## Chapt. 1 Hello World
+### C/C++ 開発環境の構築
 
-### 1-1 Lチカ すべての始まり
+#### Arduino IDE を使う
 
-### 1-2 シリアル通信を使った「Hello World」
+**Arduino IDE のインストール**
 
-## Chapt. 2 通信
+Arduino IDE をインストール.
 
-### 2-1 OLED ディスプレイ上での「Hello World」
+[Software | Arduino](https://www.arduino.cc/en/software)
 
-### 2-2 センサー入力
+macOS では Homebrew を使ってインストールできます.
 
-## Chapt. 3 CO2 モニタを作る
+```bash
+$ brew install --cask arduino
+```
 
-### 3-1 データを表示する
+**ライブラリの追加**
 
-### 3-2 グラフを表示する
+メニューで「ファイル」>「環境設定」>「追加のボードマネージャのURL」に以下のURLを追加します.
 
- 
+```
+https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+```
+
+**書き込み方法**
+
+「BOOT」スイッチを押しながらUSBに接続します. 「デバイスマネージャ(Windows)」「システム情報(macOS)」で「RP2 Boot」が接続していることを確認してください. 
+
+メニューで「ファイル」>「スケッチ例」>「rp2040」>「Temperature」を選択.
+
+メニューの「ツール」>「シリアルポート」には表示されません. そのまま書き込み, 書き込みに成功するとUSBの接続が切れシリアルポートとして認識されます.
+
+**参考**
+
+- [Arduino IDEでRaspberry Pi Picoの開発環境を構築 | TomoSoft](https://tomosoft.jp/design/?p=43370)
+
