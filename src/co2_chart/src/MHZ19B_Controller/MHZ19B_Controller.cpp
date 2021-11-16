@@ -17,9 +17,16 @@ const uint16_t co2::Constants::UART_BAUDRATE = 9600;
 const uint16_t co2::Constants::TEMPERATURE_OFFSET = 40;
 
 co2::MHZ19B_Controller::MHZ19B_Controller(const byte rx, const byte tx) {
+  MHZ19B_Controller::rx = rx;
+  MHZ19B_Controller::tx = tx;
+}
+
+void co2::MHZ19B_Controller::init() {
   Serial1.setRX(rx);
   Serial1.setTX(tx);
   Serial1.begin(co2::Constants::UART_BAUDRATE);
+  byte response[7];
+  read_mhz19b(response);
 }
 
 uint16_t co2::MHZ19B_Controller::get_co2() {

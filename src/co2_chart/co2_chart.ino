@@ -43,6 +43,8 @@ std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
 constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
 
 void setup() {
+  co2_controller.init();
+
   led_r.turn_off();
   led_g.turn_off();
   led_b.turn_off();

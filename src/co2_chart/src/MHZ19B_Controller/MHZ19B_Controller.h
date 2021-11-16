@@ -25,10 +25,13 @@ struct Constants {
 class MHZ19B_Controller {
 public:
   MHZ19B_Controller(const byte rx, const byte tx);
+  void init();
   uint16_t get_co2();
   int16_t get_temperature();
 private:
   bool read_mhz19b(byte* response);
+  byte rx;
+  byte tx;
 };
 
 }
