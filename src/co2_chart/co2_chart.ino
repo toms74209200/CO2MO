@@ -39,6 +39,7 @@ led::Blue led_b = led::Blue();
 
 co2::MHZ19B_Controller co2_controller = co2::MHZ19B_Controller(RX_PIN, TX_PIN);
 std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
+uint8_t valid_data_pointer = SCREEN_WIDTH;
 
 constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
 
@@ -79,18 +80,18 @@ void loop() {
   display.setCursor(0, 0);
   display.println(display_data);
 
-  if (co2_data_vector.size() == SCREEN_WIDTH) {
-    co2_data_vector.erase(co2_data_vector.begin());
-    co2_data_vector.push_back(co2_data);
+  co2_data_vector.erase(co2_data_vector.begin());
+  co2_data_vector.push_back(co2_data);
+
+  if (valid_data_pointer == 0) {
     for (uint8_t i = 1; i < SCREEN_WIDTH; i++) {
       plot_data(i - 1, i, co2_data_vector[i-1], co2_data_vector[i]);
     }
   } else {
-    co2_data_vector.push_back(co2_data);
-    uint8_t data_size = co2_data_vector.size();
-    for (uint8_t i = 1; i < data_size; i++) {
+    for (uint8_t i = valid_data_pointer; i < SCREEN_WIDTH; i++) {
       plot_data(i - 1, i, co2_data_vector[i-1], co2_data_vector[i]);
     }
+    valid_data_pointer--;
   }
   display.display();
 
