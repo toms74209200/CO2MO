@@ -25,6 +25,7 @@
 #### Refs.
 
 [1]<a name="arduino_wire"/> [Arduino - Wire](https://www.arduino.cc/en/reference/wire)
+
 [2]<a name="adafruit_ssd1306"/> [SSD1306 datasheet](https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf)
 [Arduino Library & Examples | Monochrome OLED Breakouts | Adafruit Learning System](https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples)
 
