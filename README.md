@@ -6,6 +6,10 @@
 
 CO2 monitor made with RP2040.
 
+![](docs/fig/co2mo_device.jpg)
+
+![movie](docs/fig/co2mo_mov.gif)
+
 ## Devices
 
 - RP2040 development board
@@ -13,6 +17,8 @@ CO2 monitor made with RP2040.
 - MH-Z19B CO2 sensor
 
 ## Schematic
+
+See [RPCM-2111.pdf](pcb/RPCM-2111/RPCM-2111.pdf).
 
 ## Build guide
 
