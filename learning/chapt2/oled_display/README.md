@@ -14,7 +14,7 @@
 
 #### ライブラリの利用
 
-`Adafruit_SSD1306` クラスを使用することでOLED ディスプレイを操作することができます. 実際にはマイコンであるRP2040のI2C機能を使用するため, I2C機能を利用できるピンを選択する必要があります. ここでは `GP0`(TX) と `GP1`(RX) を使用しています.
+`Adafruit_SSD1306` クラスを使用することでOLED ディスプレイを操作することができます. 実際にはマイコンであるRP2040のI2C機能を使用するため, I2C機能を利用できるピンを選択する必要があります. ここでは `GP4`(SDA) と `GP5`(SCL) を使用しています.
 
 ディスプレイの描画はすべてビットマップのため, 文字列の描画もビットマップによって行われています. しかしディスプレイドライバやライブラリを使用することで, それを意識することなくシリアル通信と同じような操作をするだけで文字列を表示することができます.
 
@@ -26,8 +26,9 @@
 
 [1]<a name="arduino_wire"/> [Arduino - Wire](https://www.arduino.cc/en/reference/wire)
 
-[2]<a name="adafruit_ssd1306"/> [SSD1306 datasheet](https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf)
-[Arduino Library & Examples | Monochrome OLED Breakouts | Adafruit Learning System](https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples)
+[2]<a name="adafruit_ssd1306"/> [Arduino Library & Examples | Monochrome OLED Breakouts | Adafruit Learning System](https://learn.adafruit.com/monochrome-oled-breakouts/arduino-library-and-examples)
 
-[3]<a name="yamorijp_font"> [arduino-examples/main.cpp at master · yamorijp/arduino-examples](https://github.com/yamorijp/arduino-examples/blob/master/ssd1306/src/main.cpp)
+[3] [SSD1306 datasheet](https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf)
+
+[4]<a name="yamorijp_font"> [arduino-examples/main.cpp at master · yamorijp/arduino-examples](https://github.com/yamorijp/arduino-examples/blob/master/ssd1306/src/main.cpp)
 

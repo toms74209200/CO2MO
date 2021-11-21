@@ -60,7 +60,17 @@ https://github.com/earlephilhower/arduino-pico/releases/download/global/package_
 
 メニューの「ツール」>「シリアルポート」には表示されません. そのまま書き込み, 書き込みに成功するとUSBの接続が切れシリアルポートとして認識されます.
 
+---
 
+開発基板(Tiny 2040)の詳細は公式サイトを確認ください.
+
+[Tiny 2040 – Pimoroni](https://shop.pimoroni.com/products/tiny-2040)  
+https://shop.pimoroni.com/products/tiny-2040
+
+![tiny-2040-pinout-diagram](https://cdn.shopify.com/s/files/1/0174/1800/files/tiny-2040-pinout-diagram_4dd9e9ab-6f6f-4b63-82d4-16793d109f17.png)
+
+[Tiny 2040 chematic](https://cdn.shopify.com/s/files/1/0174/1800/files/Tiny2040_PIM558_schematic.pdf)  
+https://cdn.shopify.com/s/files/1/0174/1800/files/Tiny2040_PIM558_schematic.pdf
 
 **参考**
 
