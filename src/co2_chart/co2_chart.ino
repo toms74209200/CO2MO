@@ -13,6 +13,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include "logo_co2mo_bitmap.h"
 #include "src/LedController/LedController.h"
 #include "src/TimeUtil/TimeUtil.h"
 #include "src/MHZ19B_Controller/MHZ19B_Controller.h"
@@ -52,6 +53,11 @@ void setup() {
 
   Serial.begin(115200);
 
+  delay(time_util::Seconds::toMillis(10));
+}
+
+// Display setting another core
+void setup1() {
   Wire.setSDA(OLED_SDA_PIN);
   Wire.setSCL(OLED_SCL_PIN);
 
@@ -62,9 +68,9 @@ void setup() {
 
   display.clearDisplay();
   display.setTextColor(WHITE);
-  display.display();
 
-  delay(time_util::Seconds::toMillis(10));
+  display.drawBitmap(0, 0, logo::LOGO_BITMAP, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+  display.display();
 }
 
 void loop() {
