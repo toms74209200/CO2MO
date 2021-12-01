@@ -13,9 +13,11 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#include "src/LedController/LedController.h"
-#include "src/TimeUtil/TimeUtil.h"
 #include "mhz19b_uart.h"
+
+#define LED_R 18
+#define LED_G 19
+#define LED_B 20
 
 #define RX_PIN 1
 #define TX_PIN 0
@@ -27,11 +29,7 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-led::Red led_r = led::Red();
-led::Green led_g = led::Green();
-led::Blue led_b = led::Blue();
-
-constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
+constexpr unsigned long INTERVAL = 1*60*1000;
 constexpr uint16_t CHART_DATA_OFFSET = 14;
 constexpr uint16_t CHART_DATA_HIGHT = SCREEN_HEIGHT - 14;
 constexpr uint16_t CHART_DATA_MIN = 350;
@@ -40,9 +38,13 @@ constexpr uint16_t CHART_DATA_MAX = 3000;
 std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
 
 void setup() {
-  led_r.turn_off();
-  led_g.turn_off();
-  led_b.turn_off();
+  pinMode(LED_R, OUTPUT);
+  pinMode(LED_G, OUTPUT);
+  pinMode(LED_B, OUTPUT);
+
+  led_off(LED_R);
+  led_off(LED_G);
+  led_off(LED_B);
 
 // Debug USB serial
   Serial.begin(115200);
@@ -62,7 +64,7 @@ void setup() {
   display.setTextColor(WHITE);
   display.display();
 
-  delay(time_util::Seconds::toMillis(10));
+  delay(10*1000);
 }
 
 void loop() {
@@ -95,6 +97,14 @@ void loop() {
 
   // Interval
   delay(INTERVAL);
+}
+
+void led_on(int pin) {
+  digitalWrite(pin, LOW);
+}
+
+void led_off(int pin) {
+  digitalWrite(pin, HIGH);
 }
 
 /**
