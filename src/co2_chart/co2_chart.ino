@@ -34,6 +34,7 @@ constexpr uint16_t CHART_DATA_OFFSET = 14;
 constexpr uint16_t CHART_DATA_HIGHT = SCREEN_HEIGHT - 14;
 constexpr uint16_t CHART_DATA_MIN = 350;
 constexpr uint16_t CHART_DATA_MAX = 3000;
+constexpr auto OFFSET_DISPLAY_DATA = 5;
 
 led::Red led_r = led::Red();
 led::Green led_g = led::Green();
@@ -91,7 +92,7 @@ void loop() {
   sprintf(display_data, "%d ppm", filtered_data);
 
   display.clearDisplay();
-  display.setCursor(0, 0);
+  display.setCursor(OFFSET_DISPLAY_DATA, OFFSET_DISPLAY_DATA);
   display.println(display_data);
 
   co2_data_vector.erase(co2_data_vector.begin());
