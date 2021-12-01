@@ -14,6 +14,7 @@
 #include <Adafruit_SSD1306.h>
 
 #include "logo_co2mo_bitmap.h"
+#include "DigitalFilter.h"
 #include "src/LedController/LedController.h"
 #include "src/TimeUtil/TimeUtil.h"
 #include "src/MHZ19B_Controller/MHZ19B_Controller.h"
@@ -42,14 +43,18 @@ co2::MHZ19B_Controller co2_controller = co2::MHZ19B_Controller(RX_PIN, TX_PIN);
 std::vector<uint16_t> co2_data_vector(SCREEN_WIDTH);
 uint8_t valid_data_pointer = SCREEN_WIDTH;
 
-constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(5);
+filter::DigitalFilter diginal_filter;
+
+constexpr unsigned long INTERVAL = time_util::Minutes::toMillis(1);
 
 void setup() {
-  co2_controller.init();
-
   led_r.turn_off();
   led_g.turn_off();
   led_b.turn_off();
+
+  co2_controller.init();
+
+  diginal_filter = filter::DigitalFilter(co2_controller.get_co2());
 
   Serial.begin(115200);
 
@@ -76,18 +81,21 @@ void setup1() {
 void loop() {
   uint16_t co2_data = co2_controller.get_co2();
 
-  Serial.print(co2_data);
-  Serial.print("\n");
+  Serial.println(co2_data);
+
+  uint16_t filtered_data = diginal_filter.get_filtered_data(co2_data);
+
+  Serial.println(filtered_data);
 
   char display_data[10];
-  sprintf(display_data, "%d ppm", co2_data);
+  sprintf(display_data, "%d ppm", filtered_data);
 
   display.clearDisplay();
   display.setCursor(0, 0);
   display.println(display_data);
 
   co2_data_vector.erase(co2_data_vector.begin());
-  co2_data_vector.push_back(co2_data);
+  co2_data_vector.push_back(filtered_data);
 
   if (valid_data_pointer == 0) {
     for (uint8_t i = 1; i < SCREEN_WIDTH; i++) {
