@@ -38,17 +38,19 @@ https://github.com/earlephilhower/arduino-pico/releases/download/global/package_
 
 **ボードの設定**
 
-ファームウェアを書き込む前に対象となる端末の設定を行います. メニューの「ツール」にある項目を以下のように設定してください. ただしシリアルポートはファームウェア書き込み後シリアルポートを有効にしなければ選択できません.
+ファームウェアを書き込む前に対象となる端末の設定を行います. メニューの「ツール」にある項目を以下のように設定してください. ただしシリアルポートはファームウェア書き込み後シリアルポートを有効にしなければ選択できません. デバッグ実行をする場合は「Optimize」, 「RTTI」, 「Debug Port」を適宜指定します.
 
-| 項             | 値                    |
-| -------------- | --------------------- |
-| ボード         | Adafruit QT Py RP2040 |
-| Flash Size     | 8MB (no FS)           |
-| CPU Speed      | 133 MHz               |
-| Debug Port     | Disabled              |
-| Debug Level    | なし                  |
-| USB Stack      | Pico SDK              |
-| シリアルポート | N/A（選択不可）       |
+| 項             | 値                     |
+| -------------- | ---------------------- |
+| ボード         | Adafruit QT Py RP2040  |
+| Flash Size     | 8MB (no FS)            |
+| CPU Speed      | 133 MHz                |
+| Optimize       | Small (-Os) (standard) |
+| RTTI           | Disabled               |
+| Debug Port     | Disabled               |
+| Debug Level    | なし                   |
+| USB Stack      | Pico SDK               |
+| シリアルポート | N/A（選択不可）        |
 
 ![board setting](fig/board_setting.png)
 
